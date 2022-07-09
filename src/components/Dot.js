@@ -30,7 +30,7 @@ const Dot = ({
   return (
     <DotWrapper onClick={handleClick}>
       {DotCustom ? (
-        <DotCustom isActive={isActive} />
+        <DotCustom isActive={isActive} index={index} />
       ) : (
         <DotDefault color={isActive ? dotColorActive : dotColorInactive} />
       )}

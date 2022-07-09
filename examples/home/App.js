@@ -40,6 +40,10 @@ const CustomDot = styled.span`
   transition: all 0.2s;
 `
 
+const SelectBar = ({ isActive, index }) => {
+  return <span style={{ color: isActive ? 'yellow' : 'black' }}>{index}</span>
+}
+
 const App = () => {
   const [isHover, setIshover] = useState(false)
 
@@ -152,6 +156,28 @@ const App = () => {
           { breakpoint: 750, cols: 2, rows: 1, gap: 5 },
           { breakpoint: 499, autoplay: 2000, loop: true }
         ]}
+      >
+        {[...Array(20)].map((_, i) => (
+          <Carousel.Item key={i}>
+            <img
+              width="100%"
+              src={randomImgUrl.replace('{x}', 250).replace('{y}', 158) + i * 6}
+            />
+          </Carousel.Item>
+        ))}
+      </Carousel>
+      <details>
+        <summary>responsiveLayout settings</summary>
+      </details>
+      <Carousel
+        showSelectBar
+        selectBar={SelectBar}
+        mobileBreakpoint={499}
+        // responsiveLayout={[
+        //   { breakpoint: 1000, cols: 3 },
+        //   { breakpoint: 750, cols: 2, rows: 1, gap: 5 },
+        //   { breakpoint: 499, autoplay: 2000, loop: true }
+        // ]}
       >
         {[...Array(20)].map((_, i) => (
           <Carousel.Item key={i}>

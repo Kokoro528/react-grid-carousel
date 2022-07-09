@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import ArrowButton from './ArrowButton'
 import Dot from './Dot'
+import SelectBar from './SelectBar'
 import smoothscroll from 'smoothscroll-polyfill'
 import useResponsiveLayout from '../hooks/responsiveLayoutHook'
 import { addResizeHandler, removeResizeHandler } from '../utils/resizeListener'
@@ -66,6 +67,18 @@ const ItemSet = styled.div`
   }
 `
 
+const SelectBars = styled.ul.attrs(props => ({
+  className: props.className
+}))`
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 10px;
+  width: 100%;
+  padding: 10px 12px;
+`
+
 const Dots = styled.div`
   position: absolute;
   display: flex;
@@ -96,6 +109,9 @@ const Carousel = ({
   scrollSnap = true,
   hideArrow = false,
   showDots = false,
+  showSelectBar = false,
+  selectBar,
+  selectBarClassname,
   autoplay: autoplayProp,
   dotColorActive = '#795548',
   dotColorInactive = '#ccc',
@@ -336,6 +352,22 @@ const Carousel = ({
         CustomBtn={arrowLeft}
         onClick={handlePrev}
       />
+      {showSelectBar && (
+        <SelectBars
+          mobileBreakpoint={mobileBreakpoint}
+          className={selectBarClassname}
+        >
+          {[...Array(page)].map((_, i) => (
+            <SelectBar
+              key={i}
+              index={i}
+              isActive={i === currentPage}
+              selectBar={selectBar}
+              onClick={turnToPage}
+            />
+          ))}
+        </SelectBars>
+      )}
       <RailWrapper
         mobileBreakpoint={mobileBreakpoint}
         scrollSnap={scrollSnap}
@@ -406,6 +438,12 @@ Carousel.propTypes = {
   scrollSnap: PropTypes.bool,
   hideArrow: PropTypes.bool,
   showDots: PropTypes.bool,
+  showSelectBar: PropTypes.bool,
+  selectBar: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.element,
+    PropTypes.elementType
+  ]),
   autoplay: PropTypes.number,
   dotColorActive: PropTypes.string,
   dotColorInactive: PropTypes.string,
@@ -441,4 +479,5 @@ Carousel.propTypes = {
 
 Carousel.Item = ({ children }) => children
 Carousel.Item.displayName = CAROUSEL_ITEM
+
 export default Carousel
