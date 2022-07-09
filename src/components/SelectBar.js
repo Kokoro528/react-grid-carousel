@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 const SelectBarWrapper = styled.li.attrs(props => ({
-  className: props.className
+  className: props.selectBarItemWrapperClassName
 }))`
   display: flex;
   margin: 0 5px;
@@ -14,19 +14,20 @@ const SelectBar = ({
   index,
   isActive = false,
   selectBar: SelectCustom,
-  className,
-  onClick
+  // selectBarItemWrapperClassName,
+  onClick,
+  ...rest
 }) => {
   const handleClick = useCallback(() => {
     onClick(index)
   }, [index, onClick])
 
   return (
-    <SelectBarWrapper onClick={handleClick} className={className || ''}>
+    <SelectBarWrapper onClick={handleClick} {...rest}>
       {SelectCustom ? (
         <SelectCustom isActive={isActive} index={index} />
       ) : (
-        <span>newmoon</span>
+        <span>{index}</span>
       )}
     </SelectBarWrapper>
   )
@@ -40,7 +41,8 @@ SelectBar.propTypes = {
     PropTypes.element,
     PropTypes.elementType
   ]),
-  onClick: PropTypes.func.isRequired
+  onClick: PropTypes.func.isRequired,
+  selectBarItemWrapperClassName: PropTypes.string
 }
 
 export default SelectBar

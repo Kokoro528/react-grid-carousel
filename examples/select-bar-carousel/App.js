@@ -91,7 +91,7 @@ const SelectCustom = ({ isActive, index }) => {
   return (
     <span
       style={{
-        marginTop: '4px',
+        margin: '4px',
         borderTopWidth: '4px',
         borderStyle: 'solid',
         display: 'inline-flex',
@@ -129,7 +129,6 @@ const App = () => {
             {images.map((img, i) => (
               <Carousel.Item key={i}>
                 <img src={img} width="100%" height="200px" />
-                mmdou
               </Carousel.Item>
             ))}
           </Carousel>

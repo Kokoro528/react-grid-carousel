@@ -68,15 +68,12 @@ const ItemSet = styled.div`
 `
 
 const SelectBars = styled.ul.attrs(props => ({
-  className: props.className
+  className: props.selectBarClassName
 }))`
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  line-height: 10px;
-  width: 100%;
-  padding: 10px 12px;
 `
 
 const Dots = styled.div`
@@ -111,7 +108,8 @@ const Carousel = ({
   showDots = false,
   showSelectBar = false,
   selectBar,
-  selectBarClassname,
+  selectBarClassName,
+  selectBarItemWrapperClassName,
   autoplay: autoplayProp,
   dotColorActive = '#795548',
   dotColorInactive = '#ccc',
@@ -355,7 +353,7 @@ const Carousel = ({
       {showSelectBar && (
         <SelectBars
           mobileBreakpoint={mobileBreakpoint}
-          className={selectBarClassname}
+          className={selectBarClassName}
         >
           {[...Array(page)].map((_, i) => (
             <SelectBar
@@ -363,6 +361,7 @@ const Carousel = ({
               index={i}
               isActive={i === currentPage}
               selectBar={selectBar}
+              selectBarItemWrapperClassName={selectBarItemWrapperClassName}
               onClick={turnToPage}
             />
           ))}
